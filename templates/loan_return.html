@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block title %}返却処理{% endblock %}
+{% block content %}
+<h2>返却処理</h2>
+<p>以下の貸出を返却として記録します。</p>
+<table>
+  <tr><th>番号</th><td>{{ loan.loan_id }}</td></tr>
+  <tr><th>山行</th><td>{{ loan.trip_name }}</td></tr>
+  <tr><th>備品</th><td>{{ loan.equip_name }}</td></tr>
+  <tr><th>借りた部員</th><td>{{ loan.member_name }}</td></tr>
+  <tr><th>貸出日</th><td>{{ loan.lent_on }}</td></tr>
+</table>
+<form method="POST" action="{{ url_for('loan_return_execute', id=loan.loan_id) }}">
+  <p><label>返却日 *</label><input type="text" name="returned_on" value=""> (YYYY-MM-DD)</p>
+  <p><input type="submit" value="返却を記録する"></p>
+</form>
+<p><a href="{{ url_for('loans') }}">やめる（貸出台帳へ戻る）</a></p>
+{% endblock %}

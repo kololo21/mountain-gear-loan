@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %}備品編集{% endblock %}
+{% block content %}
+<h2>備品編集</h2>
+{% if errors %}
+<div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+{% endif %}
+<form method="POST" action="{{ url_for('equipment_edit_update', id=equip.equip_id) }}">
+  <p><label>番号</label>{{ equip.equip_id }}</p>
+  <p><label>備品名 *</label><input type="text" name="equip_name" value="{{ equip.equip_name }}"></p>
+  <p><label>カテゴリ</label>
+    <select name="category">
+      <option value="">（未選択）</option>
+      {% for c in categories %}
+      <option value="{{ c }}" {% if c == equip.category %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select></p>
+  <p><label>メーカー</label><input type="text" name="maker_name" value="{{ equip.maker_name }}"></p>
+  <p><label>購入日</label><input type="text" name="purchased_on" value="{{ equip.purchased_on }}"> (YYYY-MM-DD)</p>
+  <p><label>状態</label>
+    <select name="condition">
+      <option value="">（未選択）</option>
+      {% for c in conditions %}
+      <option value="{{ c }}" {% if c == equip.condition %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select></p>
+  <p><input type="submit" value="更新する"></p>
+</form>
+<p><a href="{{ url_for('equipment_detail', id=equip.equip_id) }}">詳細へ戻る</a></p>
+{% endblock %}

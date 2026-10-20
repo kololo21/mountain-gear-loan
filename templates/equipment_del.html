@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}備品削除{% endblock %}
+{% block content %}
+<h2>備品削除の確認</h2>
+<p>以下の備品を削除します。よろしいですか？</p>
+<table>
+  <tr><th>番号</th><td>{{ equip.equip_id }}</td></tr>
+  <tr><th>備品名</th><td>{{ equip.equip_name }}</td></tr>
+  <tr><th>カテゴリ</th><td>{{ equip.category }}</td></tr>
+</table>
+<form method="POST" action="{{ url_for('equipment_del_execute', id=equip.equip_id) }}">
+  <p><input type="submit" value="削除する"></p>
+</form>
+<p><a href="{{ url_for('equipment_detail', id=equip.equip_id) }}">やめる（詳細へ戻る）</a></p>
+{% endblock %}

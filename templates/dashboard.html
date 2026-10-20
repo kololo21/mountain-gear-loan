@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title %}統計{% endblock %}
+{% block content %}
+<h2>統計ダッシュボード</h2>
+<p>集約関数（COUNT / GROUP BY）を使った集計です。</p>
+<table>
+  <tr><th>総備品数</th><td>{{ total_equip }}</td></tr>
+  <tr><th>総部員数</th><td>{{ total_member }}</td></tr>
+  <tr><th>総山行数</th><td>{{ total_trip }}</td></tr>
+  <tr><th>未返却の貸出</th><td class="status-out">{{ outstanding }}</td></tr>
+</table>
+<h3>カテゴリ別の備品数</h3>
+<table>
+  <tr><th>カテゴリ</th><th>件数</th></tr>
+  {% for c in by_category %}
+  <tr><td>{{ c.category }}</td><td>{{ c.n }}</td></tr>
+  {% endfor %}
+</table>
+<h3>部員別の貸出回数</h3>
+<table>
+  <tr><th>部員</th><th>貸出回数</th></tr>
+  {% for m in by_member %}
+  <tr><td>{{ m.name }}</td><td>{{ m.n }}</td></tr>
+  {% else %}
+  <tr><td colspan="2">貸出はありません。</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

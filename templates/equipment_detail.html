@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}備品詳細{% endblock %}
+{% block content %}
+<h2>備品詳細</h2>
+<table>
+  <tr><th>番号</th><td>{{ equip.equip_id }}</td></tr>
+  <tr><th>備品名</th><td>{{ equip.equip_name }}</td></tr>
+  <tr><th>カテゴリ</th><td>{{ equip.category }}</td></tr>
+  <tr><th>メーカー</th><td>{{ equip.maker_name }}</td></tr>
+  <tr><th>購入日</th><td>{{ equip.purchased_on }}</td></tr>
+  <tr><th>状態</th><td>{{ equip.condition }}</td></tr>
+</table>
+<p class="actions">
+  <a href="{{ url_for('equipment_edit', id=equip.equip_id) }}">編集</a>
+  <a href="{{ url_for('equipment_del', id=equip.equip_id) }}">削除</a>
+</p>
+<h3>貸出履歴</h3>
+<table>
+  <tr><th>山行</th><th>借りた部員</th><th>貸出日</th><th>返却期限</th><th>返却日</th></tr>
+  {% for h in history %}
+  <tr>
+    <td>{{ h.trip_name }}</td>
+    <td>{{ h.member_name }}</td>
+    <td>{{ h.lent_on }}</td>
+    <td>{{ h.due_on }}</td>
+    <td>{% if h.returned_on %}{{ h.returned_on }}{% else %}<span class="status-out">未返却</span>{% endif %}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">貸出履歴はありません。</td></tr>
+  {% endfor %}
+</table>
+<p><a href="{{ url_for('equipment_list') }}">備品一覧へ戻る</a></p>
+{% endblock %}

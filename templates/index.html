@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>入口</h2>
+<p>本アプリは山岳部の備品貸出を管理するWebアプリです。備品・部員・山行を登録し、
+どの備品を誰がどの山行で借りているかを台帳で管理できます。</p>
+<ul class="menu">
+  <li><a href="{{ url_for('equipment_list') }}">備品を見る・追加する</a></li>
+  <li><a href="{{ url_for('members_list') }}">部員を見る・追加する</a></li>
+  <li><a href="{{ url_for('trips_list') }}">山行を見る・追加する</a></li>
+  <li><a href="{{ url_for('loans') }}">貸出台帳を見る</a></li>
+  <li><a href="{{ url_for('loan_add') }}">貸出を登録する</a></li>
+  <li><a href="{{ url_for('dashboard') }}">統計を見る</a></li>
+</ul>
+{% endblock %}

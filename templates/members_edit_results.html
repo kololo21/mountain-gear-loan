@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block title %}部員編集結果{% endblock %}
+{% block content %}
+<h2>部員編集結果</h2>
+{% if code == 'ok' %}
+  <p class="ok">部員を更新しました。</p>
+{% elif code == 'referenced' %}
+  <p class="ng">貸出履歴から参照されているため削除できません。先に関連する貸出を削除してください。</p>
+{% elif code == 'notfound' %}
+  <p class="ng">対象が見つかりませんでした。</p>
+{% elif code == 'already' %}
+  <p class="ng">既に返却済み、または存在しない貸出です。</p>
+{% elif code == 'invaliddate' %}
+  <p class="ng">返却日が不正です。YYYY-MM-DD形式で入力してください。</p>
+{% else %}
+  <p class="ng">処理中にエラーが発生しました。</p>
+{% endif %}
+<p><a href="{{ url_for('members_list') }}">部員一覧へ</a></p>
+{% endblock %}

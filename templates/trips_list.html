@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}山行一覧{% endblock %}
+{% block content %}
+<h2>山行一覧</h2>
+<form method="POST" action="{{ url_for('trips_list_filtered') }}">
+  <p><label>山行名で検索</label>
+    <input type="text" name="keyword" value="{{ keyword }}">（部分一致）
+    <input type="submit" value="絞り込む"></p>
+</form>
+<p><a href="{{ url_for('trips_add') }}">＋ 山行を追加</a></p>
+<table>
+  <tr><th>番号</th><th>山行名</th><th>行き先</th><th>出発日</th><th>形態</th><th></th></tr>
+  {% for t in t_list %}
+  <tr>
+    <td>{{ t.trip_id }}</td><td>{{ t.trip_name }}</td><td>{{ t.destination }}</td>
+    <td>{{ t.depart_on }}</td><td>{{ t.style }}</td>
+    <td><a href="{{ url_for('trips_detail', id=t.trip_id) }}">詳細</a></td>
+  </tr>
+  {% else %}
+  <tr><td colspan="6">該当する山行はありません。</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %}備品一覧{% endblock %}
+{% block content %}
+<h2>備品一覧</h2>
+<form method="POST" action="{{ url_for('equipment_list_filtered') }}">
+  <p>
+    <label>名前で検索</label>
+    <input type="text" name="keyword" value="{{ keyword }}">
+    （部分一致）
+  </p>
+  <p>
+    <label>カテゴリ</label>
+    <select name="category">
+      <option value="">（すべて）</option>
+      {% for c in categories %}
+      <option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="絞り込む">
+  </p>
+</form>
+<p><a href="{{ url_for('equipment_add') }}">＋ 備品を追加</a></p>
+<table>
+  <tr><th>番号</th><th>備品名</th><th>カテゴリ</th><th>メーカー</th><th>状態</th><th></th></tr>
+  {% for e in e_list %}
+  <tr>
+    <td>{{ e.equip_id }}</td>
+    <td>{{ e.equip_name }}</td>
+    <td>{{ e.category }}</td>
+    <td>{{ e.maker_name }}</td>
+    <td>{{ e.condition }}</td>
+    <td><a href="{{ url_for('equipment_detail', id=e.equip_id) }}">詳細</a></td>
+  </tr>
+  {% else %}
+  <tr><td colspan="6">該当する備品はありません。</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

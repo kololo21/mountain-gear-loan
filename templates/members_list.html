@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %}部員一覧{% endblock %}
+{% block content %}
+<h2>部員一覧</h2>
+<form method="POST" action="{{ url_for('members_list_filtered') }}">
+  <p><label>氏名で検索</label>
+    <input type="text" name="keyword" value="{{ keyword }}">（部分一致）
+    <input type="submit" value="絞り込む"></p>
+</form>
+<p><a href="{{ url_for('members_add') }}">＋ 部員を追加</a></p>
+<table>
+  <tr><th>番号</th><th>氏名</th><th>学年</th><th>役職</th><th></th></tr>
+  {% for m in m_list %}
+  <tr>
+    <td>{{ m.member_id }}</td>
+    <td>{{ m.name }}</td>
+    <td>{% if m.grade %}{{ m.grade }}年{% endif %}</td>
+    <td>{{ m.role }}</td>
+    <td><a href="{{ url_for('members_detail', id=m.member_id) }}">詳細</a></td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">該当する部員はありません。</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

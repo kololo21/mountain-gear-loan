@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block title %}部員追加{% endblock %}
+{% block content %}
+<h2>部員追加</h2>
+{% if errors %}<div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="POST" action="{{ url_for('members_add_execute') }}">
+  <p><label>氏名 *</label><input type="text" name="name" value="{{ form.name }}"></p>
+  <p><label>学年</label><input type="text" name="grade" value="{{ form.grade }}"> (1〜4)</p>
+  <p><label>役職</label>
+    <select name="role"><option value="">（未選択）</option>
+      {% for r in roles %}<option value="{{ r }}" {% if r == form.role %}selected{% endif %}>{{ r }}</option>{% endfor %}
+    </select></p>
+  <p><label>電話</label><input type="text" name="phone" value="{{ form.phone }}"></p>
+  <p><label>メール</label><input type="email" name="email" value="{{ form.email }}"></p>
+  <p><input type="submit" value="追加する"></p>
+</form>
+<p><a href="{{ url_for('members_list') }}">部員一覧へ戻る</a></p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block title %}部員編集{% endblock %}
+{% block content %}
+<h2>部員編集</h2>
+{% if errors %}<div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="POST" action="{{ url_for('members_edit_update', id=member.member_id) }}">
+  <p><label>番号</label>{{ member.member_id }}</p>
+  <p><label>氏名 *</label><input type="text" name="name" value="{{ member.name }}"></p>
+  <p><label>学年</label><input type="text" name="grade" value="{{ member.grade }}"> (1〜4)</p>
+  <p><label>役職</label>
+    <select name="role"><option value="">（未選択）</option>
+      {% for r in roles %}<option value="{{ r }}" {% if r == member.role %}selected{% endif %}>{{ r }}</option>{% endfor %}
+    </select></p>
+  <p><label>電話</label><input type="text" name="phone" value="{{ member.phone }}"></p>
+  <p><label>メール</label><input type="email" name="email" value="{{ member.email }}"></p>
+  <p><input type="submit" value="更新する"></p>
+</form>
+<p><a href="{{ url_for('members_detail', id=member.member_id) }}">詳細へ戻る</a></p>
+{% endblock %}

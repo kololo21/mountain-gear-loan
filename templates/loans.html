@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title %}貸出台帳{% endblock %}
+{% block content %}
+<h2>貸出台帳</h2>
+<p>ビュー v_loan_status / v_outstanding を使って表示しています。</p>
+<form method="POST" action="{{ url_for('loans_filtered') }}">
+  <p>
+    <label><input type="checkbox" name="only_outstanding" value="on" {% if only_outstanding %}checked{% endif %}> 未返却のみ表示</label>
+    <input type="submit" value="表示">
+  </p>
+</form>
+<p><a href="{{ url_for('loan_add') }}">＋ 貸出を登録</a></p>
+<table>
+  <tr><th>番号</th><th>山行</th><th>備品</th><th>カテゴリ</th><th>借りた部員</th>
+      <th>貸出日</th><th>返却期限</th><th>状態</th><th></th></tr>
+  {% for l in l_list %}
+  <tr>
+    <td>{{ l.loan_id }}</td><td>{{ l.trip_name }}</td><td>{{ l.equip_name }}</td>
+    <td>{{ l.category }}</td><td>{{ l.member_name }}</td>
+    <td>{{ l.lent_on }}</td><td>{{ l.due_on }}</td>
+    <td>{% if l.status == '未返却' %}<span class="status-out">未返却</span>{% else %}<span class="status-in">返却済</span>{% endif %}</td>
+    <td>{% if l.status == '未返却' %}<a href="{{ url_for('loan_return', id=l.loan_id) }}">返却</a>{% endif %}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="9">貸出はありません。</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

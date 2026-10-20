@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}山岳部 備品貸出管理{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1><a href="{{ url_for('index') }}">⛰ 山岳部 備品貸出管理</a></h1>
+    <nav>
+      <a href="{{ url_for('equipment_list') }}">備品</a>
+      <a href="{{ url_for('members_list') }}">部員</a>
+      <a href="{{ url_for('trips_list') }}">山行</a>
+      <a href="{{ url_for('loans') }}">貸出台帳</a>
+      <a href="{{ url_for('dashboard') }}">統計</a>
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <a href="{{ url_for('index') }}">入口のページへ戻る</a>
+  </footer>
+</body>
+</html>

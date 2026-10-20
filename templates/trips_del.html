@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}山行削除{% endblock %}
+{% block content %}
+<h2>山行削除の確認</h2>
+<p>以下の山行を削除します。よろしいですか？</p>
+<table>
+  <tr><th>番号</th><td>{{ trip.trip_id }}</td></tr>
+  <tr><th>山行名</th><td>{{ trip.trip_name }}</td></tr>
+</table>
+<form method="POST" action="{{ url_for('trips_del_execute', id=trip.trip_id) }}">
+  <p><input type="submit" value="削除する"></p>
+</form>
+<p><a href="{{ url_for('trips_detail', id=trip.trip_id) }}">やめる（詳細へ戻る）</a></p>
+{% endblock %}

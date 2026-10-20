@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block title %}山行追加{% endblock %}
+{% block content %}
+<h2>山行追加</h2>
+{% if errors %}<div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>{% endif %}
+<form method="POST" action="{{ url_for('trips_add_execute') }}">
+  <p><label>山行名 *</label><input type="text" name="trip_name" value="{{ form.trip_name }}"></p>
+  <p><label>行き先</label><input type="text" name="destination" value="{{ form.destination }}"></p>
+  <p><label>出発日</label><input type="text" name="depart_on" value="{{ form.depart_on }}"> (YYYY-MM-DD)</p>
+  <p><label>帰着日</label><input type="text" name="return_on" value="{{ form.return_on }}"> (YYYY-MM-DD)</p>
+  <p><label>形態</label>
+    <select name="style"><option value="">（未選択）</option>
+      {% for s in styles %}<option value="{{ s }}" {% if s == form.style %}selected{% endif %}>{{ s }}</option>{% endfor %}
+    </select></p>
+  <p><input type="submit" value="追加する"></p>
+</form>
+<p><a href="{{ url_for('trips_list') }}">山行一覧へ戻る</a></p>
+{% endblock %}
